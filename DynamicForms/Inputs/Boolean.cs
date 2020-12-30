@@ -6,7 +6,7 @@
 		{
 			public bool? DefaultValue { get; }
 
-			public Boolean()
+			private Boolean()
 			{
 
 			}

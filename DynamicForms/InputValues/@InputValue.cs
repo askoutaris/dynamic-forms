@@ -1,6 +1,12 @@
 ﻿namespace DynamicForms.InputValues
 {
-	public abstract partial class InputValue
+	public interface IInputValue
+	{
+		string Name { get; }
+		object? GetValue();
+	}
+
+	public abstract partial class InputValue : IInputValue
 	{
 		public string Name { get; }
 

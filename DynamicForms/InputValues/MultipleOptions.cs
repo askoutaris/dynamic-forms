@@ -8,7 +8,7 @@ namespace DynamicForms.InputValues
 		{
 			public string[]? Keys { get; }
 
-			public MultipleOptions()
+			private MultipleOptions()
 			{
 
 			}

@@ -6,7 +6,7 @@
 		{
 			public string? DefaultValue { get; }
 
-			public Text()
+			private Text()
 			{
 
 			}

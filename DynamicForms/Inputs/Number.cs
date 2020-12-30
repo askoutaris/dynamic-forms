@@ -7,7 +7,7 @@
 			public decimal? DefaultValue { get; }
 			public int Decimals { get; }
 
-			public Number()
+			private Number()
 			{
 
 			}

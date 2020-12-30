@@ -8,7 +8,7 @@ namespace DynamicForms.InputValues
 		{
 			public string? Value { get; }
 
-			public Text()
+			private Text()
 			{
 
 			}

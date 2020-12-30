@@ -8,7 +8,7 @@ namespace DynamicForms.InputValues
 		{
 			public decimal? Value { get; }
 
-			public Number()
+			private Number()
 			{
 
 			}

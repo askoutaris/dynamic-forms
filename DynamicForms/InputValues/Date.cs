@@ -8,7 +8,7 @@ namespace DynamicForms.InputValues
 		{
 			public DateTime? Value { get; }
 
-			public Date()
+			private Date()
 			{
 
 			}

@@ -10,7 +10,7 @@ namespace DynamicForms.Inputs
 			public DateTime MinDate { get; }
 			public DateTime MaxDate { get; }
 
-			public Date()
+			private Date()
 			{
 
 			}
