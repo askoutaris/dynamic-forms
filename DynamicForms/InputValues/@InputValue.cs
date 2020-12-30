@@ -1,21 +1,21 @@
 ﻿namespace DynamicForms.InputValues
 {
-	public interface IInputValue
+	public interface IFormInputValue
 	{
 		string Name { get; }
 		object? GetValue();
 	}
 
-	public abstract partial class InputValue : IInputValue
+	public abstract partial class FormInputValue : IFormInputValue
 	{
 		public string Name { get; }
 
-		protected InputValue()
+		protected FormInputValue()
 		{
 			Name = string.Empty;
 		}
 
-		protected InputValue(string name)
+		protected FormInputValue(string name)
 		{
 			Name = name;
 		}

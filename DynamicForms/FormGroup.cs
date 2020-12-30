@@ -3,13 +3,13 @@ using DynamicForms.Inputs;
 
 namespace DynamicForms
 {
-	public class Form
+	public class FormGroup
 	{
 		public string Name { get; }
 		public string Caption { get; }
-		public IReadOnlyCollection<Input> Inputs { get; }
+		public IReadOnlyCollection<Inputs.FormInput> Inputs { get; }
 
-		public Form(string name, string caption, Input[] inputs)
+		public FormGroup(string name, string caption, Inputs.FormInput[] inputs)
 		{
 			Name = name;
 			Caption = caption;

@@ -2,9 +2,9 @@
 
 namespace DynamicForms.InputValues
 {
-	public abstract partial class InputValue
+	public abstract partial class FormInputValue
 	{
-		public class MultipleOptions : InputValue
+		public class MultipleOptions : FormInputValue
 		{
 			public string[]? Keys { get; }
 

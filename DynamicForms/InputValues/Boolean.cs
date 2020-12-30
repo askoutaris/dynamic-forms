@@ -1,8 +1,8 @@
 ﻿namespace DynamicForms.InputValues
 {
-	public abstract partial class InputValue
+	public abstract partial class FormInputValue
 	{
-		public class Boolean : InputValue
+		public class Boolean : FormInputValue
 		{
 			public bool? Value { get; }
 

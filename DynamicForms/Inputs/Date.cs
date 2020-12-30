@@ -1,10 +1,11 @@
 ﻿using System;
+using DynamicForms.Validators;
 
 namespace DynamicForms.Inputs
 {
-	public abstract partial class Input
+	public abstract partial class FormInput
 	{
-		public class Date : Input
+		public class Date : FormInput
 		{
 			public DateTime? DefaultValue { get; }
 			public DateTime MinDate { get; }
@@ -15,7 +16,7 @@ namespace DynamicForms.Inputs
 
 			}
 
-			public Date(string name, string caption, DateTime? defaultValue, DateTime minDate, DateTime maxDate) : base(name, caption)
+			public Date(string name, string caption, IValidator[] validators, DateTime? defaultValue, DateTime minDate, DateTime maxDate) : base(name, caption, validators)
 			{
 				DefaultValue = defaultValue;
 				MinDate = minDate;

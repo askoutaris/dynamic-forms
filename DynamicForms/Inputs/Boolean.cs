@@ -1,8 +1,10 @@
-﻿namespace DynamicForms.Inputs
+﻿using DynamicForms.Validators;
+
+namespace DynamicForms.Inputs
 {
-	public abstract partial class Input
+	public abstract partial class FormInput
 	{
-		public class Boolean : Input
+		public class Boolean : FormInput
 		{
 			public bool? DefaultValue { get; }
 
@@ -11,7 +13,7 @@
 
 			}
 
-			public Boolean(string name, string caption, bool? defaultValue) : base(name, caption)
+			public Boolean(string name, string caption, bool? defaultValue, IValidator[] validators) : base(name, caption, validators)
 			{
 				DefaultValue = defaultValue;
 			}

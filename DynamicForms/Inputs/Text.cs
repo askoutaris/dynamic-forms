@@ -1,8 +1,10 @@
-﻿namespace DynamicForms.Inputs
+﻿using DynamicForms.Validators;
+
+namespace DynamicForms.Inputs
 {
-	public abstract partial class Input
+	public abstract partial class FormInput
 	{
-		public class Text : Input
+		public class Text : FormInput
 		{
 			public string? DefaultValue { get; }
 
@@ -11,7 +13,7 @@
 
 			}
 
-			public Text(string name, string caption, string? defaultValue) : base(name, caption)
+			public Text(string name, string caption, IValidator[] validators, string? defaultValue) : base(name, caption, validators)
 			{
 				DefaultValue = defaultValue;
 			}
