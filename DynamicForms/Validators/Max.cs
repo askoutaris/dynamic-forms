@@ -4,25 +4,28 @@ using DynamicForms.InputValues;
 
 namespace DynamicForms.Validators
 {
-	[ValidatorName(Constants.Validators.Max)]
-	public class MaxValidator : IValidator
+	public partial class Validator
 	{
-		private readonly decimal _max;
-
-		public MaxValidator(decimal max)
+		[Alias(Constants.Validators.Max)]
+		public class Max: IValidator
 		{
-			_max = max;
-		}
+			private readonly decimal _max;
 
-		public ValidationError[] Validate(IFormInputValue inputValue)
-		{
-			if (inputValue is not FormInputValue.Number number)
-				throw new ArgumentException($"MaxValidator can only be use with Number input. Input {inputValue.Name} is {inputValue.GetType()}");
+			public Max(decimal max)
+			{
+				_max = max;
+			}
 
-			if (number.Value > _max)
-				return new[] { new ValidationError(inputValue.Name, $"Must be less than {_max}") };
+			public ValidationError[] Validate(IInputValue inputValue)
+			{
+				if (inputValue is not InputValue.Number number)
+					throw new ArgumentException($"MaxValidator can only be use with Number input. Input {inputValue.Name} is {inputValue.GetType()}");
 
-			return Array.Empty<ValidationError>();
+				if (number.Value > _max)
+					return new[] { new ValidationError(inputValue.Name, $"Must be less than {_max}") };
+
+				return Array.Empty<ValidationError>();
+			}
 		}
 	}
 }

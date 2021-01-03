@@ -4,31 +4,34 @@ using DynamicForms.InputValues;
 
 namespace DynamicForms.Validators
 {
-	[ValidatorName(Constants.Validators.Required)]
-	public class RequiredValidator : IValidator
+	public partial class Validator
 	{
-		public ValidationError[] Validate(IFormInputValue inputValue)
+		[Alias(Constants.Validators.Required)]
+		public class Required: IValidator
 		{
-			if (inputValue is FormInputValue.MultipleOptions multipleOptions)
-				return ValidateMultipleOptions(multipleOptions);
-			else
-				return ValidateDefault(inputValue);
-		}
+			public ValidationError[] Validate(IInputValue inputValue)
+			{
+				if (inputValue is InputValue.MultipleOptions multipleOptions)
+					return ValidateMultipleOptions(multipleOptions);
+				else
+					return ValidateDefault(inputValue);
+			}
 
-		private ValidationError[] ValidateDefault(IFormInputValue inputValue)
-		{
-			if (inputValue.GetValue() == null)
-				return new[] { new ValidationError(inputValue.Name, "Required") };
+			private ValidationError[] ValidateDefault(IInputValue inputValue)
+			{
+				if (inputValue.GetValue() == null)
+					return new[] { new ValidationError(inputValue.Name, "Required") };
 
-			return Array.Empty<ValidationError>();
-		}
+				return Array.Empty<ValidationError>();
+			}
 
-		private ValidationError[] ValidateMultipleOptions(FormInputValue.MultipleOptions multipleOptions)
-		{
-			if (multipleOptions.Keys == null || multipleOptions.Keys.Length == 0)
-				return new[] { new ValidationError(multipleOptions.Name, "Is required") };
+			private ValidationError[] ValidateMultipleOptions(InputValue.MultipleOptions multipleOptions)
+			{
+				if (multipleOptions.Keys == null || multipleOptions.Keys.Length == 0)
+					return new[] { new ValidationError(multipleOptions.Name, "Is required") };
 
-			return Array.Empty<ValidationError>();
+				return Array.Empty<ValidationError>();
+			}
 		}
 	}
 }

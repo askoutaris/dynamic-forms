@@ -4,18 +4,21 @@ using DynamicForms.InputValues;
 
 namespace DynamicForms.Validators
 {
-	[ValidatorName(Constants.Validators.RequiredTrue)]
-	public class RequiredTrueValidator : IValidator
+	public partial class Validator
 	{
-		public ValidationError[] Validate(IFormInputValue inputValue)
+		[Alias(Constants.Validators.RequiredTrue)]
+		public class RequiredTrue : IValidator
 		{
-			if (inputValue is not FormInputValue.Boolean boolean)
-				throw new ArgumentException($"RequiredTrueValidator can only be use with Boolean input. Input {inputValue.Name} is {inputValue.GetType()}");
+			public ValidationError[] Validate(IInputValue inputValue)
+			{
+				if (inputValue is not InputValue.Boolean boolean)
+					throw new ArgumentException($"RequiredTrueValidator can only be use with Boolean input. Input {inputValue.Name} is {inputValue.GetType()}");
 
-			if (boolean.Value != true)
-				return new[] { new ValidationError(inputValue.Name, $"Must be true") };
+				if (boolean.Value != true)
+					return new[] { new ValidationError(inputValue.Name, $"Must be true") };
 
-			return Array.Empty<ValidationError>();
+				return Array.Empty<ValidationError>();
+			}
 		}
 	}
 }

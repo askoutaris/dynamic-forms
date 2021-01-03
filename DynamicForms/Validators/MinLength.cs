@@ -4,25 +4,28 @@ using DynamicForms.InputValues;
 
 namespace DynamicForms.Validators
 {
-	[ValidatorName(Constants.Validators.MinLength)]
-	public class MinLengthValidator : IValidator
+	public partial class Validator
 	{
-		private readonly decimal _minLength;
-
-		public MinLengthValidator(decimal minLength)
+		[Alias(Constants.Validators.MinLength)]
+		public class MinLength: IValidator
 		{
-			_minLength = minLength;
-		}
+			private readonly decimal _length;
 
-		public ValidationError[] Validate(IFormInputValue inputValue)
-		{
-			if (inputValue is not FormInputValue.Text text)
-				throw new ArgumentException($"MinLengthValidator can only be use with Text input. Input {inputValue.Name} is {inputValue.GetType()}");
+			public MinLength(decimal length)
+			{
+				_length = length;
+			}
 
-			if ((text.Value ?? string.Empty).Length < _minLength)
-				return new[] { new ValidationError(inputValue.Name, $"Must be longer than {_minLength}") };
+			public ValidationError[] Validate(IInputValue inputValue)
+			{
+				if (inputValue is not InputValue.Text text)
+					throw new ArgumentException($"MinLengthValidator can only be use with Text input. Input {inputValue.Name} is {inputValue.GetType()}");
 
-			return Array.Empty<ValidationError>();
+				if ((text.Value ?? string.Empty).Length < _length)
+					return new[] { new ValidationError(inputValue.Name, $"Must be longer than {_length}") };
+
+				return Array.Empty<ValidationError>();
+			}
 		}
 	}
 }

@@ -2,9 +2,9 @@
 
 namespace DynamicForms.InputValues
 {
-	public abstract partial class FormInputValue
+	public abstract partial class InputValue
 	{
-		public class Date : FormInputValue
+		public class Date : InputValue
 		{
 			public DateTime? Value { get; }
 

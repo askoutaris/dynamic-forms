@@ -1,23 +1,26 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
+using DynamicForms.Attributes;
 using DynamicForms.Validators;
 
 namespace DynamicForms.Inputs
 {
-	public abstract partial class FormInput
+	public abstract partial class Input
 	{
-		public class FormGroup : FormInput
+		[Alias(Constants.Inputs.FormGroup)]
+		public class FormGroup : Input
 		{
-			public IReadOnlyCollection<FormInput> Inputs { get; }
+			public IReadOnlyCollection<IInput> Inputs { get; }
 
 			private FormGroup()
 			{
-				Inputs = Array.Empty<FormInput>();
+				Inputs = Array.Empty<IInput>();
 			}
 
-			public FormGroup(string name, string caption, FormInput[] inputs, IValidator[] validators) : base(name, caption, validators)
+			public FormGroup(string name, string caption, IEnumerable<IInput> inputs, IEnumerable<IValidator> validators) : base(name, caption, validators)
 			{
-				Inputs = inputs;
+				Inputs = inputs.ToArray();
 			}
 		}
 	}

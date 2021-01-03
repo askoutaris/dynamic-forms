@@ -1,0 +1,18 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<form name="SampleQuery1" caption="Our first query sample">
+
+	<input name="competitionContextSysname" alias="multipleoptions" caption="Competition context" source="COMPETITION_CONTEXTS" multiple="true" />
+
+	<input name="isCaptured" alias="boolean" caption="Is captured"/>
+
+	<input name="keyword" alias="text" caption="Keyword" validators="required;minlength:length=3;maxlength:length=10" />
+
+	<input name="Dates" alias="formgroup" caption="Date From/To">
+
+		<input name="startTimeFrom" alias="date" caption="Start time from" minDate="2020-12-0T12:00:00" maxDate="+2D+12H+30M" defaultValue="-1D"/>
+
+		<input name="startTimeTo" alias="date" caption="Start time to" maxDate="+1Y" defaultValue="+1D"/>
+
+	</input>
+
+</form>

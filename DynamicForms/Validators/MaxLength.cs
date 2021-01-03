@@ -4,25 +4,28 @@ using DynamicForms.InputValues;
 
 namespace DynamicForms.Validators
 {
-	[ValidatorName(Constants.Validators.MaxLength)]
-	public class MaxLengthValidator : IValidator
+	public partial class Validator
 	{
-		private readonly decimal _maxLength;
-
-		public MaxLengthValidator(decimal maxLength)
+		[Alias(Constants.Validators.MaxLength)]
+		public class MaxLength: IValidator
 		{
-			_maxLength = maxLength;
-		}
+			private readonly decimal _length;
 
-		public ValidationError[] Validate(IFormInputValue inputValue)
-		{
-			if (inputValue is not FormInputValue.Text text)
-				throw new ArgumentException($"MaxLengthValidator can only be use with Text input. Input {inputValue.Name} is {inputValue.GetType()}");
+			public MaxLength(decimal length)
+			{
+				_length = length;
+			}
 
-			if ((text.Value ?? string.Empty).Length < _maxLength)
-				return new[] { new ValidationError(inputValue.Name, $"Must be longer than {_maxLength}") };
+			public ValidationError[] Validate(IInputValue inputValue)
+			{
+				if (inputValue is not InputValue.Text text)
+					throw new ArgumentException($"MaxLengthValidator can only be use with Text input. Input {inputValue.Name} is {inputValue.GetType()}");
 
-			return Array.Empty<ValidationError>();
+				if ((text.Value ?? string.Empty).Length < _length)
+					return new[] { new ValidationError(inputValue.Name, $"Must be longer than {_length}") };
+
+				return Array.Empty<ValidationError>();
+			}
 		}
 	}
 }

@@ -1,10 +1,13 @@
-﻿using DynamicForms.Validators;
+﻿using System.Collections.Generic;
+using DynamicForms.Attributes;
+using DynamicForms.Validators;
 
 namespace DynamicForms.Inputs
 {
-	public abstract partial class FormInput
+	public abstract partial class Input
 	{
-		public class Text : FormInput
+		[Alias(Constants.Inputs.Text)]
+		public class Text : Input
 		{
 			public string? DefaultValue { get; }
 
@@ -13,7 +16,7 @@ namespace DynamicForms.Inputs
 
 			}
 
-			public Text(string name, string caption, IValidator[] validators, string? defaultValue) : base(name, caption, validators)
+			public Text(string name, string caption, IEnumerable<IValidator> validators, string? defaultValue) : base(name, caption, validators)
 			{
 				DefaultValue = defaultValue;
 			}

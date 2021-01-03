@@ -16,4 +16,10 @@
 		<ProjectCapability Include="DynamicFileNesting" />
 	</ItemGroup>
 
+	<ItemGroup>
+	  <Compile Update="Factories\ValidatorFactories - Copy.Default.cs">
+	    <DependentUpon>ValidatorFactories.Default.cs</DependentUpon>
+	  </Compile>
+	</ItemGroup>
+
 </Project>

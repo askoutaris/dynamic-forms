@@ -2,9 +2,9 @@
 
 namespace DynamicForms.InputValues
 {
-	public abstract partial class FormInputValue
+	public abstract partial class InputValue
 	{
-		public class Number : FormInputValue
+		public class Number : InputValue
 		{
 			public decimal? Value { get; }
 

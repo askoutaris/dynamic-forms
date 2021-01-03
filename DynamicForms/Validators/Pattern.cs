@@ -5,25 +5,28 @@ using DynamicForms.InputValues;
 
 namespace DynamicForms.Validators
 {
-	[ValidatorName(Constants.Validators.Pattern)]
-	public class PatternValidator : IValidator
+	public partial class Validator
 	{
-		private readonly string _pattern;
-
-		public PatternValidator(string pattern)
+		[Alias(Constants.Validators.Pattern)]
+		public class Pattern : IValidator
 		{
-			_pattern = pattern;
-		}
+			private readonly string _pattern;
 
-		public ValidationError[] Validate(IFormInputValue inputValue)
-		{
-			if (inputValue is not FormInputValue.Text text)
-				throw new ArgumentException($"PatternValidator can only be use with Text input. Input {inputValue.Name} is {inputValue.GetType()}");
+			public Pattern(string pattern)
+			{
+				_pattern = pattern;
+			}
 
-			if (!Regex.IsMatch(text.Value ?? string.Empty, _pattern))
-				return new[] { new ValidationError(inputValue.Name, $"Is not valid") };
+			public ValidationError[] Validate(IInputValue inputValue)
+			{
+				if (inputValue is not InputValue.Text text)
+					throw new ArgumentException($"PatternValidator can only be use with Text input. Input {inputValue.Name} is {inputValue.GetType()}");
 
-			return Array.Empty<ValidationError>();
+				if (!Regex.IsMatch(text.Value ?? string.Empty, _pattern))
+					return new[] { new ValidationError(inputValue.Name, $"Is not valid") };
+
+				return Array.Empty<ValidationError>();
+			}
 		}
 	}
 }

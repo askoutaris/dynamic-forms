@@ -1,10 +1,13 @@
-﻿using DynamicForms.Validators;
+﻿using System.Collections.Generic;
+using DynamicForms.Attributes;
+using DynamicForms.Validators;
 
 namespace DynamicForms.Inputs
 {
-	public abstract partial class FormInput
+	public abstract partial class Input
 	{
-		public class Number : FormInput
+		[Alias(Constants.Inputs.Number)]
+		public class Number : Input
 		{
 			public decimal? DefaultValue { get; }
 			public int Decimals { get; }
@@ -14,7 +17,7 @@ namespace DynamicForms.Inputs
 
 			}
 
-			public Number(string name, string caption, IValidator[] validators, decimal? defaultValue, int decimals) : base(name, caption, validators)
+			public Number(string name, string caption, IEnumerable<IValidator> validators, decimal? defaultValue, int decimals) : base(name, caption, validators)
 			{
 				DefaultValue = defaultValue;
 				Decimals = decimals;

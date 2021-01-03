@@ -5,7 +5,12 @@ namespace DynamicForms.Validators
 {
 	public interface IValidator
 	{
-		public ValidationError[] Validate(IFormInputValue inputValue);
+		public ValidationError[] Validate(IInputValue inputValue);
+	}
+
+	public partial class Validator
+	{
+
 	}
 
 	public class ValidationError

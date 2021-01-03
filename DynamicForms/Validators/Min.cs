@@ -4,25 +4,28 @@ using DynamicForms.InputValues;
 
 namespace DynamicForms.Validators
 {
-	[ValidatorName(Constants.Validators.Min)]
-	public class MinValidator : IValidator
+	public partial class Validator
 	{
-		private readonly decimal _min;
-
-		public MinValidator(decimal min)
+		[Alias(Constants.Validators.Min)]
+		public class Min : IValidator
 		{
-			_min = min;
-		}
+			private readonly decimal _min;
 
-		public ValidationError[] Validate(IFormInputValue inputValue)
-		{
-			if (inputValue is not FormInputValue.Number number)
-				throw new ArgumentException($"MinValidator can only be use with Number input. Input {inputValue.Name} is {inputValue.GetType()}");
+			public Min(decimal min)
+			{
+				_min = min;
+			}
 
-			if (number.Value < _min)
-				return new[] { new ValidationError(inputValue.Name, $"Must be greater than {_min}") };
+			public ValidationError[] Validate(IInputValue inputValue)
+			{
+				if (inputValue is not InputValue.Number number)
+					throw new ArgumentException($"MinValidator can only be use with Number input. Input {inputValue.Name} is {inputValue.GetType()}");
 
-			return Array.Empty<ValidationError>();
+				if (number.Value < _min)
+					return new[] { new ValidationError(inputValue.Name, $"Must be greater than {_min}") };
+
+				return Array.Empty<ValidationError>();
+			}
 		}
 	}
 }
