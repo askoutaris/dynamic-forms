@@ -1,4 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.Text.RegularExpressions;
 using DynamicForms.Inputs;
 
 namespace DynamicForms.Factories
@@ -8,7 +10,53 @@ namespace DynamicForms.Factories
 		public class DateXml : IInputFactory
 		{
 			public IInput Create(Dictionary<string, object> parameterValues)
-				=> TypeActivator.CreateInstance<Input.Date>(parameterValues);
+			{
+				AdaptDateParameter(parameterValues, "minDate");
+				AdaptDateParameter(parameterValues, "maxDate");
+				AdaptDateParameter(parameterValues, "defaultValue");
+
+				return TypeActivator.CreateInstance<Input.Date>(parameterValues);
+			}
+
+			private void AdaptDateParameter(Dictionary<string, object> parameterValues, string parameterName)
+			{
+				if (!parameterValues.TryGetValue(parameterName, out object value))
+					return;
+
+				var expression = value.ToString();
+				if (DateTime.TryParse(expression, out var _))
+					return;
+
+				var date = GetDateFromExpression(expression);
+				parameterValues[parameterName] = date;
+			}
+
+			private DateTime GetDateFromExpression(string expression)
+			{
+				var matches = Constants.Regex.DateExpressionXml.Matches(expression);
+				var date = DateTime.Now;
+				foreach (Match match in matches)
+				{
+					var sign = match.Groups["sign"].Value;
+					var amount = int.Parse(match.Groups["amount"].Value);
+					var unit = match.Groups["unit"].Value;
+
+					if (sign == "-")
+						amount = -amount;
+
+					switch (unit)
+					{
+						case "Y": date = date.AddYears(amount); break;
+						case "M": date = date.AddMonths(amount); break;
+						case "D": date = date.AddDays(amount); break;
+						case "H": date = date.AddHours(amount); break;
+						case "m": date = date.AddMinutes(amount); break;
+						case "S": date = date.AddSeconds(amount); break;
+					}
+				}
+
+				return date;
+			}
 		}
 	}
 }
