@@ -10,7 +10,7 @@ namespace DynamicForms.Factories
 {
 	public class XmlFormFactory : FormFactoryBase
 	{
-		const string ValidatorsKey = "validators";
+		const string _validatorsKey = "validators";
 		private readonly string _xmlFilePath;
 
 		public XmlFormFactory(string xmlFullFilePath, IEnumerable<InputFactorySet> inputFactories, IEnumerable<ValidatorFactorySet> validatorFactories)
@@ -30,7 +30,7 @@ namespace DynamicForms.Factories
 			return new Input.FormGroup(formName, formCaption, inputs.ToArray(), Array.Empty<IValidator>());
 		}
 
-		private async System.Threading.Tasks.Task<List<IInput>> GetInputs(XElement groupElement)
+		private async Task<List<IInput>> GetInputs(XElement groupElement)
 		{
 			var inputs = new List<IInput>();
 			foreach (var element in groupElement.Elements())
@@ -40,7 +40,7 @@ namespace DynamicForms.Factories
 				{
 					switch (attribute.Name.ToString())
 					{
-						case "validators":
+						case _validatorsKey:
 							var validators = GetValidators(element);
 							parameterValues.Add(attribute.Name.ToString(), validators);
 							break;
@@ -50,8 +50,8 @@ namespace DynamicForms.Factories
 					}
 				}
 
-				if (!parameterValues.ContainsKey(ValidatorsKey))
-					parameterValues.Add(ValidatorsKey, Array.Empty<IValidator>());
+				if (!parameterValues.ContainsKey(_validatorsKey))
+					parameterValues.Add(_validatorsKey, Array.Empty<IValidator>());
 
 				if (element.Name == "group")
 				{
@@ -72,7 +72,7 @@ namespace DynamicForms.Factories
 		}
 		private IValidator[] GetValidators(XElement inputElement)
 		{
-			var validatorsAttribute = inputElement.Attribute(ValidatorsKey);
+			var validatorsAttribute = inputElement.Attribute(_validatorsKey);
 			if (validatorsAttribute == null)
 				return Array.Empty<IValidator>();
 
