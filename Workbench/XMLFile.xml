@@ -1,9 +1,9 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <formGroup name="SampleQuery1" caption="Our first query sample">
 
-	<input name="startTimeFrom" alias="date" caption="Start time from" minDate="2020-12-01T12:00:00" maxDate="+2D+12H+30m" defaultValue="-1D"/>
+	<input name="competitionContextSysname" alias="multipleoptions" caption="Competition context" source="COMPETITION_CONTEXTS" multiple="true" defaultKeys="SOCCER,BASKETBALL" />
 
-	<input name="competitionContextSysname" alias="multipleoptions" caption="Competition context" source="COMPETITION_CONTEXTS" multiple="true" />
+	<input name="startTimeFrom" alias="date" caption="Start time from" minDate="2020-12-01T12:00:00" maxDate="+2D+12H+30m" defaultValue="-1D"/>
 
 	<input name="isCaptured" alias="boolean" caption="Is captured"/>
 

@@ -12,7 +12,7 @@ namespace Workbench
 				new InputFactorySet(Constants.Inputs.Boolean, new InputFactory.Boolean()),
 				new InputFactorySet(Constants.Inputs.Date, new InputFactory.DateXml()),
 				new InputFactorySet(Constants.Inputs.FormGroup, new InputFactory.FormGroup()),
-				new InputFactorySet(Constants.Inputs.MultipleOptions, new InputFactory.MultipleOptions()),
+				new InputFactorySet(Constants.Inputs.MultipleOptions, new InputFactory.MultipleOptionsXml()),
 				new InputFactorySet(Constants.Inputs.Number, new InputFactory.Number()),
 				new InputFactorySet(Constants.Inputs.Text, new InputFactory.Text()),
 			};
