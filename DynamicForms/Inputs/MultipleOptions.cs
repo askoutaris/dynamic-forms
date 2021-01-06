@@ -18,7 +18,8 @@ namespace DynamicForms.Inputs
 				KeyValues = new Dictionary<string, string>();
 			}
 
-			public MultipleOptions(string name, string caption, IEnumerable<IValidator> validators, Dictionary<string, string> keyValues, string[]? defaultKeys, bool multiple) : base(name, caption, validators)
+			public MultipleOptions(string name, string caption, IEnumerable<IValidator> validators, Dictionary<string, string> keyValues, string[]? defaultKeys, bool multiple)
+				: base(name, caption, validators)
 			{
 				KeyValues = keyValues;
 				DefaultKeys = defaultKeys;

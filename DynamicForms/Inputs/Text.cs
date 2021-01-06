@@ -16,7 +16,8 @@ namespace DynamicForms.Inputs
 
 			}
 
-			public Text(string name, string caption, IEnumerable<IValidator> validators, string? defaultValue) : base(name, caption, validators)
+			public Text(string name, string caption, IEnumerable<IValidator> validators, string? defaultValue)
+				: base(name, caption, validators)
 			{
 				DefaultValue = defaultValue;
 			}

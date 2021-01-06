@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace DynamicForms.InputValues
+﻿namespace DynamicForms.InputValues
 {
 	public abstract partial class InputValue
 	{
@@ -13,7 +11,8 @@ namespace DynamicForms.InputValues
 
 			}
 
-			public Text(string name, string? value) : base(name)
+			public Text(string name, string? value)
+				: base(name)
 			{
 				Value = value;
 			}

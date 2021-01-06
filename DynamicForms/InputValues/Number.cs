@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace DynamicForms.InputValues
+﻿namespace DynamicForms.InputValues
 {
 	public abstract partial class InputValue
 	{
@@ -13,7 +11,8 @@ namespace DynamicForms.InputValues
 
 			}
 
-			public Number(string name, decimal? value) : base(name)
+			public Number(string name, decimal? value)
+				: base(name)
 			{
 				Value = value;
 			}

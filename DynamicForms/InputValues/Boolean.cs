@@ -11,7 +11,8 @@
 
 			}
 
-			public Boolean(string name, bool? value) : base(name)
+			public Boolean(string name, bool? value) 
+				: base(name)
 			{
 				Value = value;
 			}

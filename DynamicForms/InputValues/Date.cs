@@ -13,7 +13,8 @@ namespace DynamicForms.InputValues
 
 			}
 
-			public Date(string name, DateTime? value) : base(name)
+			public Date(string name, DateTime? value)
+				: base(name)
 			{
 				Value = value;
 			}

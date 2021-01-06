@@ -19,7 +19,8 @@ namespace DynamicForms.Inputs
 
 			}
 
-			public Date(string name, string caption, IEnumerable<IValidator> validators, DateTime? defaultValue, DateTime minDate, DateTime maxDate) : base(name, caption, validators)
+			public Date(string name, string caption, IEnumerable<IValidator> validators, DateTime? defaultValue, DateTime minDate, DateTime maxDate)
+				: base(name, caption, validators)
 			{
 				DefaultValue = defaultValue;
 				MinDate = minDate;

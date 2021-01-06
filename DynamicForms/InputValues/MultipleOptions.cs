@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace DynamicForms.InputValues
+﻿namespace DynamicForms.InputValues
 {
 	public abstract partial class InputValue
 	{
@@ -13,7 +11,8 @@ namespace DynamicForms.InputValues
 
 			}
 
-			public MultipleOptions(string name, string[]? keys) : base(name)
+			public MultipleOptions(string name, string[]? keys)
+				: base(name)
 			{
 				Keys = keys;
 			}

@@ -17,7 +17,8 @@ namespace DynamicForms.Inputs
 
 			}
 
-			public Number(string name, string caption, IEnumerable<IValidator> validators, decimal? defaultValue, int decimals) : base(name, caption, validators)
+			public Number(string name, string caption, IEnumerable<IValidator> validators, decimal? defaultValue, int decimals)
+				: base(name, caption, validators)
 			{
 				DefaultValue = defaultValue;
 				Decimals = decimals;

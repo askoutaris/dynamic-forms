@@ -18,7 +18,8 @@ namespace DynamicForms.Inputs
 				Inputs = Array.Empty<IInput>();
 			}
 
-			public FormGroup(string name, string caption, IEnumerable<IInput> inputs, IEnumerable<IValidator> validators) : base(name, caption, validators)
+			public FormGroup(string name, string caption, IEnumerable<IInput> inputs, IEnumerable<IValidator> validators)
+				: base(name, caption, validators)
 			{
 				Inputs = inputs.ToArray();
 			}

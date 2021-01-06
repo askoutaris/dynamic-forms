@@ -16,7 +16,8 @@ namespace DynamicForms.Inputs
 
 			}
 
-			public Boolean(string name, string caption, bool? defaultValue, IEnumerable<IValidator> validators) : base(name, caption, validators)
+			public Boolean(string name, string caption, bool? defaultValue, IEnumerable<IValidator> validators)
+				: base(name, caption, validators)
 			{
 				DefaultValue = defaultValue;
 			}
