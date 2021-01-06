@@ -9,6 +9,7 @@ namespace DynamicForms.Factories
 {
 	public class XmlFormFactory : FormFactoryBase
 	{
+		const string ValidatorsKey = "validators";
 		private readonly string _xmlFilePath;
 
 		public XmlFormFactory(string xmlFullFilePath, IEnumerable<InputFactorySet> inputFactories, IEnumerable<ValidatorFactorySet> validatorFactories)
@@ -28,27 +29,49 @@ namespace DynamicForms.Factories
 			return new Input.FormGroup(formName, formCaption, inputs.ToArray(), Array.Empty<IValidator>());
 		}
 
-		private List<IInput> GetInputs(XElement formElement)
+		private List<IInput> GetInputs(XElement groupElement)
 		{
 			var inputs = new List<IInput>();
-			foreach (var inputElement in formElement.Descendants("input"))
+			foreach (var element in groupElement.Elements())
 			{
-				var validators = GetValidators(inputElement);
+				var parameterValues = new Dictionary<string, object>();
+				foreach (var attribute in element.Attributes())
+				{
+					switch (attribute.Name.ToString())
+					{
+						case "validators":
+							var validators = GetValidators(element);
+							parameterValues.Add(attribute.Name.ToString(), validators);
+							break;
+						default:
+							parameterValues.Add(attribute.Name.ToString(), attribute.Value);
+							break;
+					}
+				}
 
-				var parameterValues = new Dictionary<string, object>() { { "validators", validators } };
-				foreach (var attribute in inputElement.Attributes())
-					parameterValues.Add(attribute.Name.ToString(), attribute.Value);
+				if (!parameterValues.ContainsKey(ValidatorsKey))
+					parameterValues.Add(ValidatorsKey, Array.Empty<IValidator>());
 
-				var inputAlias = inputElement.Attribute("alias").Value;
-				var input = CreateInput(inputAlias, parameterValues);
-				inputs.Add(input);
+				if (element.Name == "group")
+				{
+					var groupInputs = GetInputs(element);
+					parameterValues.Add("inputs", groupInputs);
+					var input = CreateInput(Constants.Inputs.FormGroup, parameterValues);
+					inputs.Add(input);
+				}
+				else
+				{
+					var inputAlias = element.Attribute("alias").Value;
+					var input = CreateInput(inputAlias, parameterValues);
+					inputs.Add(input);
+				}
 			}
 
 			return inputs;
 		}
 		private IValidator[] GetValidators(XElement inputElement)
 		{
-			var validatorsAttribute = inputElement.Attribute("validators");
+			var validatorsAttribute = inputElement.Attribute(ValidatorsKey);
 			if (validatorsAttribute == null)
 				return Array.Empty<IValidator>();
 

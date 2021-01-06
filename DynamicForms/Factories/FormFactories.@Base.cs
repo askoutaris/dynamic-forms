@@ -41,18 +41,18 @@ namespace DynamicForms.Factories
 			_validatorFactories.Add(validatorAlias, factory);
 		}
 
-		protected IInput CreateInput(string alias, Dictionary<string, object> parameterValues)
+		protected IInput CreateInput(string inputAlias, Dictionary<string, object> parameterValues)
 		{
-			if (!_inputFactories.TryGetValue(alias, out IInputFactory factory))
-				throw new Exception($"No factory found for input {alias}. Consider registering the corresponding factory using RegisterInputFactory() method");
+			if (!_inputFactories.TryGetValue(inputAlias, out IInputFactory factory))
+				throw new Exception($"No factory found for input {inputAlias}. Consider registering the corresponding factory using RegisterInputFactory() method");
 
 			return factory.Create(parameterValues);
 		}
 
-		protected IValidator CreateValidator(string alias, Dictionary<string, object> parameterValues)
+		protected IValidator CreateValidator(string validatorAlias, Dictionary<string, object> parameterValues)
 		{
-			if (!_validatorFactories.TryGetValue(alias, out IValidatorFactory factory))
-				throw new Exception($"No factory found for validator {alias}. Consider registering the corresponding factory using RegisterValidatorFactory() method");
+			if (!_validatorFactories.TryGetValue(validatorAlias, out IValidatorFactory factory))
+				throw new Exception($"No factory found for validator {validatorAlias}. Consider registering the corresponding factory using RegisterValidatorFactory() method");
 
 			return factory.Create(parameterValues);
 		}
