@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using DynamicForms;
 using DynamicForms.Factories;
+using DynamicForms.InputValues;
 
 namespace Workbench
 {
@@ -37,6 +38,19 @@ namespace Workbench
 
 			var factory = new XmlFormFactory("XMLFile.xml", inputFactories, validatorFactories);
 			var form = await factory.Create();
+
+			var values = new IInputValue[] {
+				new InputValue.MultipleOptions("competitionContextSysname", new string[]{ "SOCCER", "BASKETBALL" }),
+				new InputValue.MultipleOptions("gender", new string[]{ "MALE" }),
+				new InputValue.Text("keyword", "123"),
+				new InputValue.Boolean("isCaptured", true),
+				new InputValue.FormGroup("dates", new IInputValue[]{
+					new InputValue.Date("startTimeFrom", DateTime.Now),
+					new InputValue.Date("startTimeTo", DateTime.Now)
+				})
+			};
+
+			var errors = form.Validate(values);
 
 			Console.WriteLine("Hello World!");
 		}

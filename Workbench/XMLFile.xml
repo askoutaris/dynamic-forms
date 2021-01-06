@@ -5,13 +5,11 @@
 
 	<input type="multipleoptions" name="gender" caption="Gender" source="xml" sourceValues="MALE:Male,FEMALE:Female" multiple="false" defaultKeys="MALE" />
 
-	<input type="date" name="startTimeFrom" caption="Start time from" minDate="2020-12-01T12:00:00" maxDate="+2D+12H+30m" defaultValue="-1D"/>
-
 	<input type="boolean" name="isCaptured" caption="Is captured"/>
 
 	<input type="text" name="keyword" caption="Keyword" validators="required;minlength:length=3;maxlength:length=10" />
 
-	<group name="Dates" caption="Date From/To">
+	<group name="dates" caption="Date From/To">
 
 		<input type="date" name="startTimeFrom" caption="Start time from" minDate="2020-12-01T12:00:00" maxDate="+2D+12H+30M" defaultValue="-1D"/>
 
