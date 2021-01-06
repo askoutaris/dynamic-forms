@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text.RegularExpressions;
+using System.Threading.Tasks;
 using DynamicForms.Inputs;
 
 namespace DynamicForms.Factories
@@ -9,13 +10,13 @@ namespace DynamicForms.Factories
 	{
 		public class DateXml : IInputFactory
 		{
-			public IInput Create(Dictionary<string, object> parameterValues)
+			public Task<IInput> Create(Dictionary<string, object> parameterValues)
 			{
 				AdaptDateParameter(parameterValues, "minDate");
 				AdaptDateParameter(parameterValues, "maxDate");
 				AdaptDateParameter(parameterValues, "defaultValue");
 
-				return TypeActivator.CreateInstance<Input.Date>(parameterValues);
+				return Task.FromResult<IInput>(TypeActivator.CreateInstance<Input.Date>(parameterValues));
 			}
 
 			private void AdaptDateParameter(Dictionary<string, object> parameterValues, string parameterName)

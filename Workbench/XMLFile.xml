@@ -1,19 +1,21 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <formGroup name="SampleQuery1" caption="Our first query sample">
 
-	<input name="competitionContextSysname" alias="multipleoptions" caption="Competition context" source="COMPETITION_CONTEXTS" multiple="true" defaultKeys="SOCCER,BASKETBALL" />
+	<input type="multipleoptions" name="competitionContextSysname" caption="Competition context" source="COMPETITION_CONTEXTS" multiple="true" defaultKeys="SOCCER,BASKETBALL" />
 
-	<input name="startTimeFrom" alias="date" caption="Start time from" minDate="2020-12-01T12:00:00" maxDate="+2D+12H+30m" defaultValue="-1D"/>
+	<input type="multipleoptions" name="gender" caption="Gender" source="xml" sourceValues="MALE:Male,FEMALE:Female" multiple="false" defaultKeys="MALE" />
 
-	<input name="isCaptured" alias="boolean" caption="Is captured"/>
+	<input type="date" name="startTimeFrom" caption="Start time from" minDate="2020-12-01T12:00:00" maxDate="+2D+12H+30m" defaultValue="-1D"/>
 
-	<input name="keyword" alias="text" caption="Keyword" validators="required;minlength:length=3;maxlength:length=10" />
+	<input type="boolean" name="isCaptured" caption="Is captured"/>
+
+	<input type="text" name="keyword" caption="Keyword" validators="required;minlength:length=3;maxlength:length=10" />
 
 	<group name="Dates" caption="Date From/To">
 
-		<input name="startTimeFrom" alias="date" caption="Start time from" minDate="2020-12-01T12:00:00" maxDate="+2D+12H+30M" defaultValue="-1D"/>
+		<input type="date" name="startTimeFrom" caption="Start time from" minDate="2020-12-01T12:00:00" maxDate="+2D+12H+30M" defaultValue="-1D"/>
 
-		<input name="startTimeTo" alias="date" caption="Start time to" maxDate="+1Y" defaultValue="+1D"/>
+		<input type="date" name="startTimeTo"  caption="Start time to" maxDate="+1Y" defaultValue="+1D"/>
 
 	</group>
 

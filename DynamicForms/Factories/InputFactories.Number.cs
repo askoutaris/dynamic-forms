@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Threading.Tasks;
 using DynamicForms.Inputs;
 
 namespace DynamicForms.Factories
@@ -7,8 +8,8 @@ namespace DynamicForms.Factories
 	{
 		public class Number : IInputFactory
 		{
-			public IInput Create(Dictionary<string, object> parameterValues)
-				=> TypeActivator.CreateInstance<Input.Number>(parameterValues);
+			public Task<IInput> Create(Dictionary<string, object> parameterValues)
+				=> Task.FromResult<IInput>(TypeActivator.CreateInstance<Input.Number>(parameterValues));
 		}
 	}
 }

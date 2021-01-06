@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Xml.Linq;
+using System.Threading.Tasks;
 using DynamicForms.Inputs;
 using DynamicForms.Validators;
 
@@ -23,7 +22,7 @@ namespace DynamicForms.Factories
 				RegisterValidatorFactory(set.ValidatorAlias, set.Factory);
 		}
 
-		public abstract Input.FormGroup Create();
+		public abstract Task<Input.FormGroup> Create();
 
 		public void RegisterInputFactory(string inputAlias, IInputFactory factory)
 		{
@@ -41,12 +40,12 @@ namespace DynamicForms.Factories
 			_validatorFactories.Add(validatorAlias, factory);
 		}
 
-		protected IInput CreateInput(string inputAlias, Dictionary<string, object> parameterValues)
+		protected async Task<IInput> CreateInput(string inputAlias, Dictionary<string, object> parameterValues)
 		{
 			if (!_inputFactories.TryGetValue(inputAlias, out IInputFactory factory))
 				throw new Exception($"No factory found for input {inputAlias}. Consider registering the corresponding factory using RegisterInputFactory() method");
 
-			return factory.Create(parameterValues);
+			return await factory.Create(parameterValues);
 		}
 
 		protected IValidator CreateValidator(string validatorAlias, Dictionary<string, object> parameterValues)
@@ -55,30 +54,6 @@ namespace DynamicForms.Factories
 				throw new Exception($"No factory found for validator {validatorAlias}. Consider registering the corresponding factory using RegisterValidatorFactory() method");
 
 			return factory.Create(parameterValues);
-		}
-	}
-
-	public class InputFactorySet
-	{
-		public string InputAlias { get; }
-		public IInputFactory Factory { get; }
-
-		public InputFactorySet(string inputAlias, IInputFactory factory)
-		{
-			InputAlias = inputAlias;
-			Factory = factory;
-		}
-	}
-
-	public class ValidatorFactorySet
-	{
-		public string ValidatorAlias { get; }
-		public IValidatorFactory Factory { get; }
-
-		public ValidatorFactorySet(string validatorAlias, IValidatorFactory factory)
-		{
-			ValidatorAlias = validatorAlias;
-			Factory = factory;
 		}
 	}
 }

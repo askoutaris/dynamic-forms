@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using System.Xml.Linq;
 using DynamicForms.Inputs;
 using DynamicForms.Validators;
@@ -18,18 +19,18 @@ namespace DynamicForms.Factories
 			_xmlFilePath = xmlFullFilePath;
 		}
 
-		public override Input.FormGroup Create()
+		public override async Task<Input.FormGroup> Create()
 		{
 			var doc = XDocument.Load(_xmlFilePath);
 			var formElement = doc.Descendants("formGroup").First();
 			var formName = formElement.Attribute("name").Value;
 			var formCaption = formElement.Attribute("caption").Value;
-			var inputs = GetInputs(formElement);
+			var inputs = await GetInputs(formElement);
 
 			return new Input.FormGroup(formName, formCaption, inputs.ToArray(), Array.Empty<IValidator>());
 		}
 
-		private List<IInput> GetInputs(XElement groupElement)
+		private async System.Threading.Tasks.Task<List<IInput>> GetInputs(XElement groupElement)
 		{
 			var inputs = new List<IInput>();
 			foreach (var element in groupElement.Elements())
@@ -54,15 +55,15 @@ namespace DynamicForms.Factories
 
 				if (element.Name == "group")
 				{
-					var groupInputs = GetInputs(element);
+					var groupInputs = await GetInputs(element);
 					parameterValues.Add("inputs", groupInputs);
-					var input = CreateInput(Constants.Inputs.FormGroup, parameterValues);
+					var input = await CreateInput(Constants.Inputs.FormGroup, parameterValues);
 					inputs.Add(input);
 				}
 				else
 				{
-					var inputAlias = element.Attribute("alias").Value;
-					var input = CreateInput(inputAlias, parameterValues);
+					var inputAlias = element.Attribute("type").Value;
+					var input = await CreateInput(inputAlias, parameterValues);
 					inputs.Add(input);
 				}
 			}
