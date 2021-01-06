@@ -19,7 +19,7 @@ namespace DynamicForms.Factories
 			_xmlFilePath = xmlFullFilePath;
 		}
 
-		public override async Task<Input.FormGroup> Create()
+		public override async Task<IForm> Create()
 		{
 			var doc = XDocument.Load(_xmlFilePath);
 			var formElement = doc.Descendants("formGroup").First();
@@ -27,7 +27,7 @@ namespace DynamicForms.Factories
 			var formCaption = formElement.Attribute("caption").Value;
 			var inputs = await GetInputs(formElement);
 
-			return new Input.FormGroup(formName, formCaption, inputs.ToArray(), Array.Empty<IValidator>());
+			return new Form(formName, formCaption, inputs.ToArray());
 		}
 
 		private async Task<List<IInput>> GetInputs(XElement groupElement)

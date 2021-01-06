@@ -22,7 +22,7 @@ namespace DynamicForms.Factories
 				RegisterValidatorFactory(set.ValidatorAlias, set.Factory);
 		}
 
-		public abstract Task<Input.FormGroup> Create();
+		public abstract Task<IForm> Create();
 
 		public void RegisterInputFactory(string inputAlias, IInputFactory factory)
 		{

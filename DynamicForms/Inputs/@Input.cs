@@ -9,6 +9,7 @@ namespace DynamicForms.Inputs
 	{
 		string Name { get; }
 		string Caption { get; }
+		IReadOnlyCollection<IValidator> Validators { get; }
 	}
 
 	public abstract partial class Input : IInput
